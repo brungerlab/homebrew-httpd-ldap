@@ -1,4 +1,4 @@
-class AprUtil < Formula
+class AprUtilLdap < Formula
   desc "Companion library to apr, the Apache Portable Runtime library"
   homepage "https://apr.apache.org/"
   url "https://www.apache.org/dyn/closer.lua?path=apr/apr-util-1.6.1.tar.bz2"

@@ -1,4 +1,4 @@
-class Httpd < Formula
+class HttpdLdap < Formula
   desc "Apache HTTP server"
   homepage "https://httpd.apache.org/"
   url "https://dlcdn.apache.org/httpd/httpd-2.4.52.tar.bz2"
