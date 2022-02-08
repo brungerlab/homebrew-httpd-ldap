@@ -8,7 +8,8 @@ The httpd-ldap.rb is meant as a replacement for the standard homebrew httpd.rb f
 Current versions:
 
 httpd 2.4.52
-apr-util 
+
+apr-util 1.6.1
 
 To install on your system, first stop apache and brew services if you have them running:
 
