@@ -7,9 +7,9 @@ The httpd-ldap.rb is meant as a replacement for the standard homebrew httpd.rb f
 
 To install on your system, first stop apache and brew services if you have them running:
 
-> sudo apachectl stop
+`sudo apachectl stop`
 
-> brew services stop httpd
+`brew services stop httpd`
 
 Move your httpd.conf and any other customized subdirectories from /usr/local/etc/httpd/ to another location (e.g. Desktop).
 
