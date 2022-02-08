@@ -16,7 +16,7 @@ class HttpdLdap < Formula
   end
 
   depends_on "apr"
-  depends_on "apr-util-ldap"
+  depends_on "apr-util"
   depends_on "brotli"
   depends_on "libnghttp2"
   depends_on "openssl@1.1"
