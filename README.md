@@ -12,7 +12,7 @@ brew services stop httpd
 
 Move your httpd.conf and any other customized subdirectories from /usr/local/etc/httpd/ to another location (e.g. Desktop).
 
-Uninstall existing httpd:
+Uninstall existing httpd: 
 
 brew uninstall httpd
 rm -rf /usr/local/etc/httpd
