@@ -5,6 +5,11 @@ ldap-ldap.rb and apr-util-ldap.rb formulas for httpd with ldap support
 
 The httpd-ldap.rb is meant as a replacement for the standard homebrew httpd.rb formula.
 
+Current versions:
+
+httpd 2.4.52
+apr-util 
+
 To install on your system, first stop apache and brew services if you have them running:
 
 `sudo apachectl stop`
