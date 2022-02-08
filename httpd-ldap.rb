@@ -1,5 +1,5 @@
 class HttpdLdap < Formula
-  desc "Apache HTTP server"
+  desc "Apache HTTP server, with ldap support enabled"
   homepage "https://httpd.apache.org/"
   url "https://dlcdn.apache.org/httpd/httpd-2.4.52.tar.bz2"
   mirror "https://downloads.apache.org/httpd/httpd-2.4.52.tar.bz2"
