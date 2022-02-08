@@ -37,6 +37,6 @@ Move back/replace the httpd.conf and other customized subdirectories back to /us
 brew services start axelbrunger/httpd-ldap/httpd-ldap
 
 sudo apachectl configtest
-sudo apachectl start
+sudo apachectl start 
 
 
