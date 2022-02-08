@@ -16,7 +16,7 @@ class HttpdLdap < Formula
   end
 
   depends_on "apr"
-  depends_on "apr-util"
+  depends_on "apr-util-ldap"
   depends_on "brotli"
   depends_on "libnghttp2"
   depends_on "openssl@1.1"
@@ -73,7 +73,7 @@ depends_on "openldap"
                           "--with-port=8080",
                           "--with-sslport=8443",
                           "--with-apr=#{Formula["apr"].opt_prefix}",
-                          "--with-apr-util=#{Formula["apr-util"].opt_prefix}",
+                          "--with-apr-util-ldap=#{Formula["apr-util-ldap"].opt_prefix}",
                           "--with-brotli=#{Formula["brotli"].opt_prefix}",
                           "--with-libxml2=#{libxml2}",
                           "--with-mpm=prefork",
