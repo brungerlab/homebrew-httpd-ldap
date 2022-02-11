@@ -43,10 +43,21 @@ Install apr-util-ldap and httpd-ldap
 
 Move back/replace the httpd.conf and other customized subdirectories back to /usr/local/etc/httpd/
 
-`brew services start axelbrunger/httpd-ldap/httpd-ldap`
+`sudo brew services start httpd-ldap`
 
 `sudo apachectl configtest`
 
 `sudo apachectl start`
+
+To enable user/password for a spefic directory use these statements in httpd.conf
+
+        <Directory "directory-pathname">
+                AuthType Basic
+                AuthBasicProvider ldap
+		AuthLDAPURL ldap://ldap-server/dc=...,dc=...
+		AuthName "use your mac account"
+		require valid-user
+        </Directory>
+
 
 
