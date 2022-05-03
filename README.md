@@ -30,6 +30,7 @@ Note: do not uninstall apr-util since other services such as php depend on it.
 Install formulas:
 
 `brew tap axelbrunger/homebrew-httpd-ldap`
+`brew tap axelbrunger/homebrew-apr-util-ldap`
 
 Check the two .rb files are there:
 

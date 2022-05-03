@@ -42,7 +42,7 @@ depends_on "openldap"
     system "make"
     system "make", "install"
 
-    # Install symlinks so that linkage doesn't break for reverse dependencies.
+    # Install symlinks so that linkage doesnt break for reverse dependencies.
     # This should be removed on the next ABI breaking update.
     (libexec/"lib").install_symlink Dir["#{lib}/#{shared_library("*")}"]
 
