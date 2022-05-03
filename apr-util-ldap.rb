@@ -20,7 +20,7 @@ class AprUtilLdap < Formula
 
   depends_on "apr"
   depends_on "openssl@1.1"
-depends_on "openldap"
+  depends_on "openldap"
 
   uses_from_macos "expat"
   uses_from_macos "libxcrypt"
@@ -37,7 +37,7 @@ depends_on "openldap"
                           "--with-crypto",
                           "--with-openssl=#{Formula["openssl@1.1"].opt_prefix}",
                           "--without-pgsql",
-"--with-ldap"
+                          "--with-ldap"
 
     system "make"
     system "make", "install"
