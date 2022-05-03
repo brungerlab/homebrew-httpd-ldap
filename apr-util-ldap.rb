@@ -19,7 +19,7 @@ class AprUtilLdap < Formula
   keg_only :shadowed_by_macos, "Apple's CLT provides apr (but not apr-util)"
 
   depends_on "apr"
-  depends_on "openssl@1.1"'
+  depends_on "openssl@1.1"
 depends_on "openldap"
 
   uses_from_macos "expat"
@@ -42,7 +42,7 @@ depends_on "openldap"
     system "make"
     system "make", "install"
 
-    # Install symlinks so that linkage doesnt break for reverse dependencies.
+    # Install symlinks so that linkage doesn't break for reverse dependencies.
     # This should be removed on the next ABI breaking update.
     (libexec/"lib").install_symlink Dir["#{lib}/#{shared_library("*")}"]
 
