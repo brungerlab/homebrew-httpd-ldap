@@ -9,7 +9,7 @@ Current versions:
 
 httpd 2.4.52
 
-apr-util 1.6.1
+apr-util 1.6.1_4_
 
 To install on your system, first stop apache and brew services if you have them running:
 
