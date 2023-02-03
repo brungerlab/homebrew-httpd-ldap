@@ -1,18 +1,19 @@
 class HttpdLdap < Formula
   desc "Apache HTTP server, with ldap support enabled"
   homepage "https://httpd.apache.org/"
-  url "https://dlcdn.apache.org/httpd/httpd-2.4.52.tar.bz2"
-  mirror "https://downloads.apache.org/httpd/httpd-2.4.52.tar.bz2"
-  sha256 "0127f7dc497e9983e9c51474bed75e45607f2f870a7675a86dc90af6d572f5c9"
+  url "https://dlcdn.apache.org/httpd/httpd-2.4.55.tar.bz2"
+  mirror "https://downloads.apache.org/httpd/httpd-2.4.55.tar.bz2"
+  sha256 "11d6ba19e36c0b93ca62e47e6ffc2d2f2884942694bce0f23f39c71bdc5f69ac"
   license "Apache-2.0"
 
   bottle do
-    sha256 arm64_monterey: "7c71a42a41693093015c11813cd3ec9e714f303884afde9bde61b3eb86f2fbae"
-    sha256 arm64_big_sur:  "2bda2c7798b135b519882bd010bc2b4c8b6fb243c69046713639b22cff689400"
-    sha256 monterey:       "6a35059e2c3f69635ac6035c0a638030a1038cc62e648604ab53b4a280a88ba8"
-    sha256 big_sur:        "59ee7e0491e7a79a8844b05d0f4075d9b76b707190e6f229b84f763b58b9728a"
-    sha256 catalina:       "af1a311706c4eb1adb63b2179e2677e305f49ec346e74c3a29e60fe9fa8e5d60"
-    sha256 x86_64_linux:   "6d602ea4372d756c6ffb622373c5daa750ddb79d65818e4fa686070025b7f8ae"
+    sha256 arm64_ventura:  "29b7e065c8bca28f5dbbb96c728dc7541dde4bdd8aebad2930e96060d67733cf"
+    sha256 arm64_monterey: "fbde191d9f99fa0bdd43dd1d95e5ef9846205dfdb947c88f919affb6e9f1bbf9"
+    sha256 arm64_big_sur:  "88a5297c07660d2a74cd4c75436761c1cbceb090ae497ffcbf0c8516d0709be2"
+    sha256 ventura:        "739fcfb3aeb43d3c0f4c34e750f9d2b65481fc13255371db6fea4ac24e47f450"
+    sha256 monterey:       "ebe85c61470f0480799f7b562d715a9ac131b68673a4e266d132b4ae5fbc469f"
+    sha256 big_sur:        "6b66f7fc0dd506b20985575beb048cf530e218c14588cbeec29e0f79c958425d"
+    sha256 x86_64_linux:   "149a5c61fcd70efa73fe18ea46f7ebc9bd930f39ba7ea91dfaa5b06fb7ba242d"
   end
 
   depends_on "apr"
@@ -20,8 +21,8 @@ class HttpdLdap < Formula
   depends_on "brotli"
   depends_on "libnghttp2"
   depends_on "openssl@1.1"
-  depends_on "pcre"
-depends_on "openldap"
+  depends_on "pcre2"
+  depends_on "openldap"
 
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
@@ -67,7 +68,7 @@ depends_on "openldap"
                           "--enable-cgi",
                           "--enable-pie",
                           "--enable-suexec",
-"--enable-ldap",
+                          "--enable-ldap",
                           "--with-suexec-bin=#{opt_bin}/suexec",
                           "--with-suexec-caller=_www",
                           "--with-port=8080",
@@ -79,11 +80,11 @@ depends_on "openldap"
                           "--with-mpm=prefork",
                           "--with-nghttp2=#{Formula["libnghttp2"].opt_prefix}",
                           "--with-ssl=#{Formula["openssl@1.1"].opt_prefix}",
-                          "--with-pcre=#{Formula["pcre"].opt_prefix}",
+                          "--with-pcre=#{Formula["pcre2"].opt_prefix}/bin/pcre2-config",
                           "--with-z=#{zlib}",
                           "--disable-lua",
                           "--disable-luajit",
-"--with-ldap"
+                          "--with-ldap"
     system "make"
     ENV.deparallelize if OS.linux?
     system "make", "install"
@@ -115,7 +116,7 @@ depends_on "openldap"
     end
 
     inreplace "#{lib}/httpd/build/config_vars.mk" do |s|
-      pcre = Formula["pcre"]
+      pcre = Formula["pcre2"]
       s.gsub! pcre.prefix.realpath, pcre.opt_prefix
       s.gsub! "${prefix}/lib/httpd/modules", HOMEBREW_PREFIX/"lib/httpd/modules"
       s.gsub! Superenv.shims_path, HOMEBREW_PREFIX/"bin"
@@ -135,8 +136,6 @@ depends_on "openldap"
       #{etc}/httpd/extra/httpd-ssl.conf to 8443 so that httpd can run without sudo.
     EOS
   end
-
-  plist_options manual: "apachectl start"
 
   service do
     run [opt_bin/"httpd", "-D", "FOREGROUND"]
@@ -173,6 +172,9 @@ depends_on "openldap"
       sleep 3
 
       assert_match expected_output, shell_output("curl -s 127.0.0.1:#{port}")
+
+      # Check that `apxs` can find `apu-1-config`.
+      system bin/"apxs", "-q", "APU_CONFIG"
     ensure
       Process.kill("TERM", pid)
       Process.wait(pid)
