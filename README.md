@@ -43,9 +43,20 @@ Install apr-util-ldap and httpd-ldap
 
 Move back/replace the httpd.conf and other customized subdirectories back to /usr/local/etc/httpd/
 
+Check that ldap modules are installed:
+
+`/usr/local/opt/httpd-ldap/lib/httpd/modules/mod_authnz_ldap.so`
+`/usr/local/opt/httpd-ldap/lib/httpd/modules/mod_ldap.so`
+
+Start httpd-ldap
+
 `sudo brew services start httpd-ldap`
 
+Do a configuration test
+
 `sudo apachectl configtest`
+
+Start apache
 
 `sudo apachectl start`
 
