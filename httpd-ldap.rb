@@ -22,7 +22,7 @@ class HttpdLdap < Formula
   depends_on "libnghttp2"
   depends_on "openssl@3"
   depends_on "pcre2"
-  depends on "openldap"
+  depends_on "openldap"
 
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
