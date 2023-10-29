@@ -1,28 +1,28 @@
 class HttpdLdap < Formula
   desc "Apache HTTP server, with ldap support enabled"
   homepage "https://httpd.apache.org/"
-  url "https://dlcdn.apache.org/httpd/httpd-2.4.55.tar.bz2"
-  mirror "https://downloads.apache.org/httpd/httpd-2.4.55.tar.bz2"
-  sha256 "11d6ba19e36c0b93ca62e47e6ffc2d2f2884942694bce0f23f39c71bdc5f69ac"
+  url "https://dlcdn.apache.org/httpd/httpd-2.4.58.tar.bz2"
+  mirror "https://downloads.apache.org/httpd/httpd-2.4.58.tar.bz2"
+  sha256 "fa16d72a078210a54c47dd5bef2f8b9b8a01d94909a51453956b3ec6442ea4c5"
   license "Apache-2.0"
 
   bottle do
-    sha256 arm64_ventura:  "29b7e065c8bca28f5dbbb96c728dc7541dde4bdd8aebad2930e96060d67733cf"
-    sha256 arm64_monterey: "fbde191d9f99fa0bdd43dd1d95e5ef9846205dfdb947c88f919affb6e9f1bbf9"
-    sha256 arm64_big_sur:  "88a5297c07660d2a74cd4c75436761c1cbceb090ae497ffcbf0c8516d0709be2"
-    sha256 ventura:        "739fcfb3aeb43d3c0f4c34e750f9d2b65481fc13255371db6fea4ac24e47f450"
-    sha256 monterey:       "ebe85c61470f0480799f7b562d715a9ac131b68673a4e266d132b4ae5fbc469f"
-    sha256 big_sur:        "6b66f7fc0dd506b20985575beb048cf530e218c14588cbeec29e0f79c958425d"
-    sha256 x86_64_linux:   "149a5c61fcd70efa73fe18ea46f7ebc9bd930f39ba7ea91dfaa5b06fb7ba242d"
+    sha256 arm64_sonoma:   "b9af089ded423db731462956289794ba745381677aa61252cf64b43e7e66f737"
+    sha256 arm64_ventura:  "49f6811342d88ae562ef98cba19825c3637fcf957c1190d34f4a035ae0932994"
+    sha256 arm64_monterey: "f9f5605a7557edf21da1449d40a203d023f3596602cd36986baa939f7f623ede"
+    sha256 sonoma:         "0e08db131a2c4ec99151a53f3b516d3fcc51e0fd5e2b391c85dd887f5e163e41"
+    sha256 ventura:        "c9fd7170c6cf991930600631e3ccea78933e92cdad8d2e851cef2c1a91a1435b"
+    sha256 monterey:       "25223f06d20cb963decba9155ea4f4a199359ac2a9eeec00d316ae775728cb27"
+    sha256 x86_64_linux:   "f7f9a8b229f5838b1a219184c85fc6d83761a4604ab1c52e48a2e1affe75755f"
   end
 
   depends_on "apr"
   depends_on "apr-util-ldap"
   depends_on "brotli"
   depends_on "libnghttp2"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "pcre2"
-  depends_on "openldap"
+  depends on "openldap"
 
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
@@ -79,7 +79,7 @@ class HttpdLdap < Formula
                           "--with-libxml2=#{libxml2}",
                           "--with-mpm=prefork",
                           "--with-nghttp2=#{Formula["libnghttp2"].opt_prefix}",
-                          "--with-ssl=#{Formula["openssl@1.1"].opt_prefix}",
+                          "--with-ssl=#{Formula["openssl@3"].opt_prefix}",
                           "--with-pcre=#{Formula["pcre2"].opt_prefix}/bin/pcre2-config",
                           "--with-z=#{zlib}",
                           "--disable-lua",

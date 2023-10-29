@@ -7,7 +7,7 @@ The httpd-ldap.rb is meant as a replacement for the standard homebrew httpd.rb f
 
 Current versions:
 
-httpd 2.4.55
+httpd 2.4.58
 
 apr-util 1.6.3
 
