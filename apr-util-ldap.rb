@@ -39,8 +39,8 @@ class AprUtilLdap < Formula
                           "--with-apr=#{Formula["apr"].opt_prefix}",
                           "--with-crypto",
                           "--with-openssl=#{Formula["openssl@3"].opt_prefix}",
-                          "--without-pgsql",
-                          "--with-ldap"
+                          "--with-ldap",
+                          "--without-pgsql"
 
     system "make"
     system "make", "install"

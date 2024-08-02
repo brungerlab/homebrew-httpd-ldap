@@ -1,29 +1,30 @@
 class HttpdLdap < Formula
   desc "Apache HTTP server, with ldap support enabled"
   homepage "https://httpd.apache.org/"
-  url "https://dlcdn.apache.org/httpd/httpd-2.4.58.tar.bz2"
-  mirror "https://downloads.apache.org/httpd/httpd-2.4.58.tar.bz2"
-  sha256 "fa16d72a078210a54c47dd5bef2f8b9b8a01d94909a51453956b3ec6442ea4c5"
+  url "https://dlcdn.apache.org/httpd/httpd-2.4.62.tar.bz2"
+  mirror "https://downloads.apache.org/httpd/httpd-2.4.62.tar.bz2"
+  sha256 "674188e7bf44ced82da8db522da946849e22080d73d16c93f7f4df89e25729ec"
   license "Apache-2.0"
 
   bottle do
-    sha256 arm64_sonoma:   "b9af089ded423db731462956289794ba745381677aa61252cf64b43e7e66f737"
-    sha256 arm64_ventura:  "49f6811342d88ae562ef98cba19825c3637fcf957c1190d34f4a035ae0932994"
-    sha256 arm64_monterey: "f9f5605a7557edf21da1449d40a203d023f3596602cd36986baa939f7f623ede"
-    sha256 sonoma:         "0e08db131a2c4ec99151a53f3b516d3fcc51e0fd5e2b391c85dd887f5e163e41"
-    sha256 ventura:        "c9fd7170c6cf991930600631e3ccea78933e92cdad8d2e851cef2c1a91a1435b"
-    sha256 monterey:       "25223f06d20cb963decba9155ea4f4a199359ac2a9eeec00d316ae775728cb27"
-    sha256 x86_64_linux:   "f7f9a8b229f5838b1a219184c85fc6d83761a4604ab1c52e48a2e1affe75755f"
+    sha256 arm64_sonoma:   "e07d024239ee944db52ecebb1997c75e15144b343b347788b36dce01803bd7c0"
+    sha256 arm64_ventura:  "d497edfd46070f9f4552a5535901700cd20f885b48f2a45aa8550ad50b1f7ecc"
+    sha256 arm64_monterey: "f830c872c460dfe78c2a95ac3c21a2e0f432fa7f3e4dadacc0d1026e17d11c8a"
+    sha256 sonoma:         "f487133a012b379bfebc45bc90167a27c47e2a2985623b76f336ccb987638e87"
+    sha256 ventura:        "c3069f33e1bb675a6decd0228263f43a909d0351db6059d70bad2778bc83d36b"
+    sha256 monterey:       "ae984f66ee0b60b8955b6e9720ee7733226248f0bb052d195d9f67dc05b61641"
+    sha256 x86_64_linux:   "5a26f97286ecca3915f6a93910f0c624859205eb27f32756867b03708d98212b"
   end
 
   depends_on "apr"
   depends_on "apr-util-ldap"
+  depends_on "openldap"
   depends_on "brotli"
   depends_on "libnghttp2"
   depends_on "openssl@3"
   depends_on "pcre2"
-  depends_on "openldap"
 
+  uses_from_macos "libxcrypt"
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
@@ -48,13 +49,14 @@ class HttpdLdap < Formula
       s.gsub! "${datadir}/icons",   "#{pkgshare}/icons"
     end
 
-    libxml2 = "#{MacOS.sdk_path_if_needed}/usr"
-    libxml2 = Formula["libxml2"].opt_prefix if OS.linux?
-    zlib = if OS.mac?
-      "#{MacOS.sdk_path_if_needed}/usr"
+    if OS.mac?
+      libxml2 = "#{MacOS.sdk_path_if_needed}/usr"
+      zlib = "#{MacOS.sdk_path_if_needed}/usr"
     else
-      Formula["zlib"].opt_prefix
+      libxml2 = Formula["libxml2"].opt_prefix
+      zlib = Formula["zlib"].opt_prefix
     end
+
     system "./configure", "--enable-layout=Slackware-FHS",
                           "--prefix=#{prefix}",
                           "--sbindir=#{bin}",
@@ -82,9 +84,9 @@ class HttpdLdap < Formula
                           "--with-ssl=#{Formula["openssl@3"].opt_prefix}",
                           "--with-pcre=#{Formula["pcre2"].opt_prefix}/bin/pcre2-config",
                           "--with-z=#{zlib}",
+                          "--with-ldap",
                           "--disable-lua",
-                          "--disable-luajit",
-                          "--with-ldap"
+                          "--disable-luajit"
     system "make"
     ENV.deparallelize if OS.linux?
     system "make", "install"
